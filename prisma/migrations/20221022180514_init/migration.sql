@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "CatalogGuy" ALTER COLUMN "ID_DC" SET DATA TYPE TEXT;

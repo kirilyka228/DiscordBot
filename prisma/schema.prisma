@@ -1,0 +1,30 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-py"
+  recursive_type_depth = 5
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+
+}
+model CatalogGuy {
+    id              Int                 @id @default(autoincrement())
+    Name            String
+    ID_DC           String
+    user_role       String[]
+
+
+}
+model test {
+    id              Int                 @id @default(autoincrement())
+    Name            String              @unique
+    ID_DC           String
+    user_role       String[]
+    tg_channel      String?
+
+
+}
