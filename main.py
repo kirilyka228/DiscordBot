@@ -6,7 +6,7 @@ from discord.ext import commands
 from discord import utils
 from asyncio import sleep
 from discord.ui import Button,View
-
+import settings
 
 intents = discord.Intents.all()
 intents = discord.Intents.default()
@@ -217,7 +217,7 @@ async def number_role(ctx):
 
 
 
-client.run('MTAyOTgwNjE2NDczMDQ1NDEzNw.Gj6oP9.xSadASR_IBLzOuBOokAAyutClYGNsuDqySwBlM')
+client.run(settings.token_bot)
 
 # if role.name == 'Developer':
 #     user = await prisma.catalogguy.update(
