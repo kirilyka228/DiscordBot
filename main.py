@@ -16,7 +16,7 @@ PREFIX = '!'
 client = commands.Bot(command_prefix= PREFIX, intents = discord.Intents.all())
 prisma = Prisma()
 
-#ewfewfwe
+# efwfwe
 @client.event
 async def on_ready():
     print('Я тут!!')
