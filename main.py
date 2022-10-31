@@ -16,6 +16,7 @@ PREFIX = '!'
 client = commands.Bot(command_prefix= PREFIX, intents = discord.Intents.all())
 prisma = Prisma()
 
+#ewfewfwe
 @client.event
 async def on_ready():
     print('Я тут!!')
@@ -23,7 +24,7 @@ async def on_ready():
 
 
 # @client.command(aliases=["Телеграмм"])
-# async def tg(ctx, message = None):
+# async def tg(ctx, message ):
 #     await ctx.message.delete()
 #     def check(m):
 #         return m.author.id == ctx.author.id
@@ -38,26 +39,19 @@ async def on_ready():
 #     else:
 #         pass
 
-# @client.command()
-# async def tg(ctx, arg):
-#     author = ctx.message.author
-#     await ctx.send(f'{author.mention},твой телеграмм записан!'+ arg,delete_after=5.0)
+@client.command()
+async def tg(ctx, arg):
+    channel = client.get_channel(1036691862603432107)
+    author = ctx.message.author
+    if arg[3] == '@':
+        await ctx.send(f'{author.mention},твой телеграмм записан!'+ arg)
+    else:
+        await ctx.send('Ты неверно ввел свой логин,смотри структуру🔝',delete_after = 6.0)
 
-@client.command(pass_context=True)
-async def test(ctx, arg):
-    print(arg)
-    text = input("Введите текст:")
-    await ctx.send(text)
+    await ctx.message.delete()
 
-# class MyView(View):
-#     @discord.ui.button(label = 'Telegram',style = discord.ButtonStyle.green)
-#     async def button_callback(self,button,interaction):
-#         await interaction.response.send_message('Напиши в чат!(@свой_тг)')
-#
-# @client.command()
-# async def TG(ctx):
-#     view = MyView()
-#     await ctx.send("Поделись своим Телеграммом",view = view)
+
+
 
 
 # @client.command()
