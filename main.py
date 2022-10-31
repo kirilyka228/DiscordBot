@@ -1,4 +1,5 @@
 import asyncio
+from asyncio import TimeoutError
 from prisma import Prisma
 import json
 import discord
@@ -21,6 +22,33 @@ async def on_ready():
     await client.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name='за чатом🔍'))
 
 
+# @client.command(aliases=["Телеграмм"])
+# async def tg(ctx, message = None):
+#     await ctx.message.delete()
+#     def check(m):
+#         return m.author.id == ctx.author.id
+#     await ctx.send('Напиши в чат!(@твой_тг)')
+#
+#     try:
+#         await client.wait_for("message", check = check, timeout=5)
+#     except TimeoutError:
+#         return await ctx.send('Время вышло.')
+#     if message.startswith("@"):
+#         await ctx.send(f'Ваш логин: {message}')
+#     else:
+#         pass
+
+# @client.command()
+# async def tg(ctx, arg):
+#     author = ctx.message.author
+#     await ctx.send(f'{author.mention},твой телеграмм записан!'+ arg,delete_after=5.0)
+
+@client.command(pass_context=True)
+async def test(ctx, arg):
+    print(arg)
+    text = input("Введите текст:")
+    await ctx.send(text)
+
 # class MyView(View):
 #     @discord.ui.button(label = 'Telegram',style = discord.ButtonStyle.green)
 #     async def button_callback(self,button,interaction):
@@ -32,13 +60,13 @@ async def on_ready():
 #     await ctx.send("Поделись своим Телеграммом",view = view)
 
 
-@client.command()
-async def TG(ctx):
-    await ctx.message.delete()
-    channel = client.get_channel(1029818322201620510)
-    embed = discord.Embed(title='Напишите свой ТГ в чат',description='@ваш_тг', color = ctx.author.color)
-    embed.set_thumbnail(url = 'https://emoji.discadia.com/emojis/9fa603df-4864-439b-b78d-544c7f78cdca.gif')
-    mojj = await channel.send(embed=embed)
+# @client.command()
+# async def TG(ctx):
+#     await ctx.message.delete()
+#     channel = client.get_channel(1029818322201620510)
+#     embed = discord.Embed(title='Напишите свой ТГ в чат',description='@ваш_тг', color = ctx.author.color)
+#     embed.set_thumbnail(url = 'https://emoji.discadia.com/emojis/9fa603df-4864-439b-b78d-544c7f78cdca.gif')
+#     mojj = await channel.send(embed=embed)
 
 
 # @client.event
@@ -56,7 +84,7 @@ async def TG(ctx):
 @client.event
 async def on_raw_reaction_add(payload):
     message_id = payload.message_id
-    if message_id == 1035112069214769162:
+    if message_id == 1036266024636514314:
         guild_id = payload.guild_id
         guild = discord.utils.find(lambda g : g.id == guild_id, client.guilds)
 
@@ -120,7 +148,7 @@ async def on_raw_reaction_add(payload):
 @client.event
 async def on_raw_reaction_remove(payload):
         message_id = payload.message_id
-        if message_id == 1035112069214769162:
+        if message_id == 1036266024636514314:
             guild_id = payload.guild_id
             guild = discord.utils.find(lambda g: g.id == guild_id, client.guilds)
 
@@ -183,11 +211,16 @@ async def on_raw_reaction_remove(payload):
 async def role(ctx):
     await ctx.message.delete()
     channel = client.get_channel(1029818322201620510)
-    embed = discord.Embed(title='Choose your role in life!',description='1.🐍   Python,\n2.🎮  Swift,\n3.💗  C++,\n4.💗  Dart,\n5.💗  JS,\n6.💗  Ruby,\n7.💗  C#,\n8.💗  Java', color = ctx.author.color)
+    embed = discord.Embed(title='Choose your role in life!',description='1.<:python:1030814666995277846>   Python,'
+                                                                        '\n2.<:swift22:1035107575601045535>  Swift,'
+                                                                        '\n3.<:cplus:1035107603367333928>  C++,'
+                                                                        '\n4.<:dart98:1035107655867437066>  Dart,'
+                                                                        '\n5.<:js37:1035107672820826162>  JS,'
+                                                                        '\n6.<:ruby22:1035107719952224266>  Ruby,'
+                                                                        '\n7.<:sharp33:1035107795952996352>  C#,'
+                                                                        '\n8.<:javaS:1030815263458857001>  Java', color = ctx.author.color)
     embed.set_thumbnail(url = 'https://emoji.discadia.com/emojis/77fbde32-ecb2-4d1f-881b-b126047f93b7.gif')
     mojj = await channel.send(embed=embed)
-
-# Python, Swift (Чайка), C++, Dart ( Дротик), JS, Ruby, C#, Java
 
 @client.command(pass_context = True)
 @commands.has_permissions(administrator = True)
@@ -214,50 +247,67 @@ async def number_role(ctx):
         print(
             f'№: {number}\nName: {member.name}\nID: {member.id}\nDiscriminator: {member.discriminator}\nStatus: {member.status}\n')
 
+@client.command()
+async def skill(ctx):
+    await ctx.message.delete()
+    channel = client.get_channel(1029818322201620510)
+    embed = discord.Embed(title='Choose your skill level!',description='1.<:success:1036662551964029019>   Junior'
+                                                                        '\n2.<:memesstar:1036663057700638771>  Middle'
+                                                                        '\n3.<:old95:1036663278304239647>  Senior', color = ctx.author.color)
+    embed.set_thumbnail(url = 'https://emoji.discadia.com/emojis/77fbde32-ecb2-4d1f-881b-b126047f93b7.gif')
+    mojj = await channel.send(embed=embed)
 
+@client.event
+async def on_raw_reaction_add(payload):
+    message_id = payload.message_id
+    if message_id == 1036666325730345010:
+        guild_id = payload.guild_id
+        guild = discord.utils.find(lambda g : g.id == guild_id, client.guilds)
+        if payload.emoji.name == 'success':
+            role = discord.utils.get(guild.roles, name='Junior')
+        elif payload.emoji.name == 'memesstar':
+            role = discord.utils.get(guild.roles, name='Middle')
+        elif payload.emoji.name == 'old95':
+            role = discord.utils.get(guild.roles, name='Senior')
+        if role is not None:
+            member = discord.utils.find(lambda m: m.id == payload.user_id, guild.members)
+            if member is not None:
+                await member.add_roles(role)
+                print('done')
+            else:
+                print('Member is not found.')
+        else:
+            print('Role not found')
+
+@client.event
+async def on_raw_reaction_remove(payload):
+        message_id = payload.message_id
+        if message_id == 1036666325730345010:
+            guild_id = payload.guild_id
+            guild = discord.utils.find(lambda g: g.id == guild_id, client.guilds)
+
+            if payload.emoji.name == 'success':
+                role = discord.utils.get(guild.roles, name='Junior')
+            elif payload.emoji.name == 'memesstar':
+                role = discord.utils.get(guild.roles, name='Middle')
+            elif payload.emoji.name == 'old95':
+                role = discord.utils.get(guild.roles, name='Senior')
+            else:
+                role = discord.utils.get(guild.roles, name = payload.emoji.name)
+            if role is not None:
+                member = discord.utils.find(lambda m: m.id == payload.user_id, guild.members)
+                if member is not None:
+                    await member.remove_roles(role)
+                    print('done')
+                else:
+                    print('Member is not found.')
+            else:
+                print('Role not found')
 
 
 client.run(settings.token_bot)
 
-# if role.name == 'Developer':
-#     user = await prisma.catalogguy.update(
-#         where = {
-#             'ID_DC': str(member.id),
-#         },
-#         data = {
-#             update: {
-#             'user_role': role
-#             },
-#         },
-#     )
-# else:
-#     print('Нет выбранной роли')
-# if role.name == 'GayMer':
-#     user = await prisma.catalogguy.update(
-#         where = {
-#             'ID_DC': str(member.id),
-#         },
-#         data = {
-#             update: {
-#             'user_role': role
-#             },
-#         },
-#     )
-# else:
-#     print('Нет выбранной роли')
-# if role.name == 'Gay':
-#     user = await prisma.catalogguy.update(
-#         where = {
-#             'ID_DC': str(member.id),
-#         },
-#         data = {
-#             update: {
-#             'user_role': role
-#             },
-#         },
-#     )
-# else:
-#     print('Нет выбранной роли')
+
 
 
 # @client.command()
