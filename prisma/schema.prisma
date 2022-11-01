@@ -25,6 +25,7 @@ model test {
     ID_DC           String
     user_role       String[]
     tg_channel      String?
+    skill_level     String[]
 
 
 }
